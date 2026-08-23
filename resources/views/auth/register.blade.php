@@ -41,10 +41,10 @@
     <input type="hidden" name="role" id="roleInput" value="user">
 
     <div>
-        <label class="block text-sm font-medium text-[#0B1720] mb-1" id="nameLabel">E Waste Recycle Facility Center Name</label>
+        <label class="block text-sm font-medium text-[#0B1720] mb-1" id="nameLabel">Full Name</label>
         <input type="text" name="name" value="{{ old('name') }}" required
             class="w-full rounded-lg border border-[#E2E8F0] px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#10B981] focus:border-[#10B981]"
-            placeholder="e.g. Eco Recycle Center ">
+            placeholder="e.g. Recycle Eco Center">
     </div>
 
     <div>
