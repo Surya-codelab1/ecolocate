@@ -1,45 +1,37 @@
-<?php
-
+﻿<?php
 namespace Database\Seeders;
-
 use App\Models\City;
 use App\Models\Device;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
-
 class DatabaseSeeder extends Seeder
 {
     public function run(): void
     {
-        // ── Admin account (pre-created, no public registration) ──
-        User::create([
-            'name' => 'EcoLocate Admin',
-            'email' => 'admin@ecolocate.test',
-            'password' => Hash::make('admin12345'),
-            'role' => 'admin',
-            'email_verified_at' => now(),
-        ]);
-
-        // ── Sample cities ──
-        $cities = [
+        User::firstOrCreate(
+            ['email' => 'admin@ecolocate.test'],
+            [
+                'name' => 'EcoLocate Admin',
+                'password' => Hash::make('admin12345'),
+                'role' => 'admin',
+                'email_verified_at' => now(),
+            ]
+        );
+        \ = [
             ['name' => 'Vapi', 'state' => 'Gujarat'],
             ['name' => 'Surat', 'state' => 'Gujarat'],
             ['name' => 'Valsad', 'state' => 'Gujarat'],
             ['name' => 'Ahmedabad', 'state' => 'Gujarat'],
             ['name' => 'Mumbai', 'state' => 'Maharashtra'],
         ];
-
-        foreach ($cities as $city) {
-            City::create([
-                'name' => $city['name'],
-                'state' => $city['state'],
-                'is_active' => true,
-            ]);
+        foreach (\ as \) {
+            City::firstOrCreate(
+                ['name' => \['name']],
+                ['state' => \['state'], 'is_active' => true]
+            );
         }
-
-        // ── Sample devices ──
-        $devices = [
+        \ = [
             [
                 'brand' => 'Vivo',
                 'model_name' => 'V29',
@@ -74,9 +66,11 @@ class DatabaseSeeder extends Seeder
                 'recycling_information' => 'Screen glass recycled separately.',
             ],
         ];
-
-        foreach ($devices as $device) {
-            Device::create($device);
+        foreach (\ as \) {
+            Device::firstOrCreate(
+                ['brand' => \['brand'], 'model_name' => \['model_name']],
+                \
+            );
         }
     }
 }
