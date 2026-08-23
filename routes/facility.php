@@ -8,7 +8,7 @@ use App\Http\Controllers\Facility\{
 };
 
 Route::prefix('facility')
-    ->middleware(['auth', 'role:facility'])
+    ->middleware(['auth', 'verified', 'role:facility'])
     ->name('facility.')
     ->group(function () {
         Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
@@ -23,5 +23,5 @@ Route::prefix('facility')
         Route::post('pickups/{id}/status', [PickupController::class, 'updateStatus'])->name('pickups.updateStatus');
 
         Route::post('pickups/{id}/generate-certificate', [PickupController::class, 'generateCertificate'])
-    ->name('pickups.generateCertificate');
+            ->name('pickups.generateCertificate');
     });
