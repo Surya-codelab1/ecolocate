@@ -18,20 +18,20 @@ class DatabaseSeeder extends Seeder
                 'email_verified_at' => now(),
             ]
         );
-        \ = [
+        $cities = [
             ['name' => 'Vapi', 'state' => 'Gujarat'],
             ['name' => 'Surat', 'state' => 'Gujarat'],
             ['name' => 'Valsad', 'state' => 'Gujarat'],
             ['name' => 'Ahmedabad', 'state' => 'Gujarat'],
             ['name' => 'Mumbai', 'state' => 'Maharashtra'],
         ];
-        foreach (\ as \) {
+        foreach ($cities as $city) {
             City::firstOrCreate(
-                ['name' => \['name']],
-                ['state' => \['state'], 'is_active' => true]
+                ['name' => $city['name']],
+                ['state' => $city['state'], 'is_active' => true]
             );
         }
-        \ = [
+        $devices = [
             [
                 'brand' => 'Vivo',
                 'model_name' => 'V29',
@@ -66,10 +66,10 @@ class DatabaseSeeder extends Seeder
                 'recycling_information' => 'Screen glass recycled separately.',
             ],
         ];
-        foreach (\ as \) {
+        foreach ($devices as $device) {
             Device::firstOrCreate(
-                ['brand' => \['brand'], 'model_name' => \['model_name']],
-                \
+                ['brand' => $device['brand'], 'model_name' => $device['model_name']],
+                $device
             );
         }
     }
