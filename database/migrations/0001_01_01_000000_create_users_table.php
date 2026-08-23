@@ -1,93 +1,49 @@
 <?php
 
-namespace App\Models;
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Illuminate\Database\Eloquent\Relations\HasMany;
-
-class User extends Authenticatable implements MustVerifyEmail
+return new class extends Migration
 {
-    use HasFactory, Notifiable;
-
-    protected $fillable = [
-        'name',
-        'email',
-        'password',
-        'role',
-    ];
-
-    protected $hidden = [
-        'password',
-        'remember_token',
-    ];
-
-    protected function casts(): array
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
     {
-        return [
-            'email_verified_at' => 'datetime',
-            'password' => 'hashed',
-        ];
+        Schema::create('users', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            $table->string('email')->unique();
+            $table->timestamp('email_verified_at')->nullable();
+            $table->string('password');
+            $table->rememberToken();
+            $table->timestamps();
+        });
+
+        Schema::create('password_reset_tokens', function (Blueprint $table) {
+            $table->string('email')->primary();
+            $table->string('token');
+            $table->timestamp('created_at')->nullable();
+        });
+
+        Schema::create('sessions', function (Blueprint $table) {
+            $table->string('id')->primary();
+            $table->foreignId('user_id')->nullable()->index();
+            $table->string('ip_address', 45)->nullable();
+            $table->text('user_agent')->nullable();
+            $table->longText('payload');
+            $table->integer('last_activity')->index();
+        });
     }
 
-    // ── Relationships ─────────────────────────
-
-    public function facility(): HasMany
-    {
-        return $this->hasMany(Facility::class);
-    }
-
-    public function facilityRequests(): HasMany
-    {
-        return $this->hasMany(FacilityRequest::class);
-    }
-
-    public function pickupRequests(): HasMany
-    {
-        return $this->hasMany(PickupRequest::class);
-    }
-
-    public function deviceRequests(): HasMany
-    {
-        return $this->hasMany(DeviceRequest::class);
-    }
-
-    public function ecoCreditTransactions(): HasMany
-    {
-        return $this->hasMany(EcoCreditTransaction::class);
-    }
-
-    public function appNotifications(): HasMany
-    {
-        return $this->hasMany(Notification::class);
-    }
-
-    // ── Helpers ────────────────────────────────
-
-    public function isAdmin(): bool
-    {
-        return $this->role === 'admin';
-    }
-
-    public function isFacility(): bool
-    {
-        return $this->role === 'facility';
-    }
-
-    public function ecoCreditBalance(): int
-    {
-        return $this->ecoCreditTransactions()->sum('credits');
-    }
-}
     /**
      * Reverse the migrations.
      */
     public function down(): void
     {
-        Schema::dropIfExists('users');
-        Schema::dropIfExists('password_reset_tokens');
         Schema::dropIfExists('sessions');
+        Schema::dropIfExists('password_reset_tokens');
+        Schema::dropIfExists('users');
     }
 };
