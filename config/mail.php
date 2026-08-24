@@ -49,6 +49,13 @@ return [
             'local_domain' => env('MAIL_EHLO_DOMAIN', parse_url((string) env('APP_URL', 'http://localhost'), PHP_URL_HOST)),
         ],
 
+        // <<< YAHAN NAYA BLOCK ADD KIYA (smtp ke turant baad, ses se pehle)
+        'brevo' => [
+            'transport' => 'brevo',
+            'key' => env('BREVO_API_KEY'),
+        ],
+        // <<< YAHAN TAK NAYA BLOCK
+
         'ses' => [
             'transport' => 'ses',
         ],
