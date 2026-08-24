@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 
 namespace App\Http\Controllers\User;
 
@@ -28,9 +28,9 @@ class DashboardController extends Controller
 
         $monthly = EcoCreditTransaction::where('user_id', $userId)
             ->whereYear('created_at', now()->year)
-            ->selectRaw("strftime('%m', created_at) as month, SUM(credits) as total")
-            ->groupBy('month')
-            ->pluck('total', 'month');
+            ->get()
+            ->groupBy(fn ($row) => $row->created_at->format('m'))
+            ->map(fn ($group) => $group->sum('credits'));
 
         $chartLabels = [];
         $chartData = [];
