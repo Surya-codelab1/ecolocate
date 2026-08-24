@@ -15,6 +15,8 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->alias([
             'role' => \App\Http\Middleware\EnsureUserRole::class,
         ]);
+
+        $middleware->trustProxies(at: '*');
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //
