@@ -25,14 +25,10 @@ class AnalyticsController extends Controller
         $pickupStats = PickupRequest::select('status', DB::raw('count(*) as total'))
             ->groupBy('status')
             ->pluck('total', 'status');
-
-        $ecoCreditsMonthly = EcoCreditTransaction::select(
-                DB::raw("strftime('%m-%Y', created_at) as month"),
-                DB::raw('sum(credits) as total')
-            )
-            ->groupBy('month')
-            ->orderBy('created_at')
-            ->pluck('total', 'month');
+$ecoCreditsMonthly = EcoCreditTransaction::orderBy('created_at')
+    ->get()
+    ->groupBy(fn ($row) => $row->created_at->format('m-Y'))
+    ->map(fn ($group) => $group->sum('credits'));
 
         return view('admin.analytics.index', compact(
             'facilitiesByCity', 'deviceCategories', 'pickupStats', 'ecoCreditsMonthly'
