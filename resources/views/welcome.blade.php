@@ -80,19 +80,17 @@
 
             {{-- Left: heading, description, CTAs --}}
             <div class="relative z-10">
-                <h1 class="font-display text-4xl sm:text-5xl font-extrabold text-[#0B1720] leading-[1.2] tracking-tight">
-                    Locate, and
-                    <span class="kw-chip text-[#10B981]">recycle</span>
-                    your E-Waste
-                    <span class="kw-chip text-[#0EA5E9]">and Earn Credits</span>.
-                </h1>
+             <h1 class="font-display text-4xl sm:text-5xl font-extrabold text-[#0B1720] leading-[1.2] tracking-tight">
+    Give Your E-Waste
+    <span class="text-[#10B981]">a Second Life</span>
+    &amp; Get
+    <span class="text-[#0EA5E9]">Rewards</span>
+</h1>
 
-                <p class="mt-6 text-base sm:text-lg text-[#334155] max-w-lg leading-relaxed border-l-2 border-[#10B981]/40 pl-4">
-                    EcoLocate connects you with verified e-waste recycling facilities near you,
-                    shows you how to safely dispose of any device, and lets you schedule a
-                    pickup in minutes — no guesswork, no landfill.
-                </p>
-
+<p class="mt-6 text-base sm:text-lg text-[#334155] max-w-lg leading-relaxed border-l-2 border-[#10B981]/40 pl-4">
+    Discover nearby recycling facilities, responsibly recycle your devices, and
+    earn EcoCredits that turn your green actions into meaningful rewards.
+</p>
                 <div class="mt-8 flex flex-wrap items-center gap-3">
                     <a href="{{ route('facilities.map') }}"
                        class="inline-flex items-center gap-1.5 bg-gradient-to-r from-[#10B981] to-[#34D399] text-white text-xs sm:text-sm font-semibold px-4 py-2.5 rounded-full shadow-md shadow-[#10B981]/25 hover:shadow-lg hover:-translate-y-0.5 transition-all">
