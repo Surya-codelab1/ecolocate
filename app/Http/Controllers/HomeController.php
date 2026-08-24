@@ -2,9 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Schema;
-
 class HomeController extends Controller
 {
     /**
@@ -32,36 +29,11 @@ class HomeController extends Controller
     private function buildStats(): array
     {
         return [
-            'users'      => max($this->liveUserCount(), 1200),
+            'users'      => max($this->safeCount(\App\Models\User::class), 1200),
             'facilities' => max($this->safeCount(\App\Models\Facility::class), 150),
             'pickups'    => max($this->safeCount(\App\Models\PickupRequest::class), 3400),
-            // TODO: replace with a real distinct-city query once facilities
-            // store a normalized city column, e.g.
-            // Facility::query()->distinct('city')->count('city')
-            'cities'     => 42,
+            'cities'     => max($this->safeCount(\App\Models\City::class), 42),
         ];
-    }
-
-    /**
-     * Real "users online right now" count, based on rows in the sessions
-     * table with activity in the last 5 minutes. Requires SESSION_DRIVER=database
-     * in .env (the default Laravel session table already stores last_activity).
-     * Falls back to 0 (and the baseline in buildStats()) if the sessions
-     * table isn't set up as a database table.
-     */
-    private function liveUserCount(): int
-    {
-        if (! Schema::hasTable('sessions')) {
-            return 0;
-        }
-
-        try {
-            return DB::table('sessions')
-                ->where('last_activity', '>=', now()->subMinutes(5)->timestamp)
-                ->count();
-        } catch (\Throwable $e) {
-            return 0;
-        }
     }
 
     /**

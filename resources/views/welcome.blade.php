@@ -137,7 +137,7 @@
             <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6" id="statGrid">
                 <div class="rounded-2xl bg-white shadow-sm border border-[#0B1720]/5 px-5 py-6 text-center">
                     <p class="font-mono-tech text-3xl sm:text-4xl font-bold text-[#0B1720]"><span class="js-counter" data-stat="users" data-target="{{ $stats['users'] ?? 1200 }}">0</span>+</p>
-                    <p class="mt-2 text-xs sm:text-sm text-[#64748B] font-medium">Users online right now</p>
+                    <p class="mt-2 text-xs sm:text-sm text-[#64748B] font-medium">Registered users on EcoLocate</p>
                 </div>
                 <div class="rounded-2xl bg-white shadow-sm border border-[#0B1720]/5 px-5 py-6 text-center">
                     <p class="font-mono-tech text-3xl sm:text-4xl font-bold text-[#10B981]"><span class="js-counter" data-stat="facilities" data-target="{{ $stats['facilities'] ?? 150 }}">0</span>+</p>
